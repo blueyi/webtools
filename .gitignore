@@ -1,3 +1,4 @@
 *.log
 *.pyc
 .ropeproject
+.python-version
