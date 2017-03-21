@@ -1,6 +1,7 @@
 SSH 22
 HTTP 80
-HTTPs 443
+HTTPS 443
+mysql 3306
 lo 127.0.0.1
 shadowsocks
 DNS 53
