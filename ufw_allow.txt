@@ -1,0 +1,7 @@
+SSH 22
+HTTP 80
+HTTPs 443
+lo 127.0.0.1
+shadowsocks
+DNS 53
+

@@ -1,0 +1,1 @@
+sql db admin pma PMA :80 192.168.109.221
