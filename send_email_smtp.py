@@ -7,7 +7,8 @@
 # Distributed under terms of the MIT license.
 
 """
-
+send email through smtp
+send_email_smtp.py user_name password email_list_file/more than one email
 """
 
 import smtplib
@@ -50,6 +51,8 @@ class SendMail:
         '''
         try:
             server = smtplib.SMTP_SSL(self.smtp_server, self.smtp_port)
+            if 'gmail' in self.smtp_server:
+                server.ehlo()
             server.login(self.user, self.password)
             server.sendmail(self.user, mail_to, self.msg_attachments(mail_to))
             server.close()
@@ -64,7 +67,8 @@ class SendMail:
         for receiver in self.to_list:
             if not self.send(receiver):
                 self.failed_list.append(receiver)
-            time.sleep(180)
+            if receiver != self.to_list[len(self.to_list) - 1]:
+                time.sleep(180)
         if len(self.failed_list) != 0:
             print('Send Failed({}): '.format(len(self.failed_list)))
             print(self.failed_list)
@@ -97,6 +101,7 @@ class SendMail:
 
 
 if __name__ == '__main__':
+    print('send_email_smtp.py user_name password email_list_file/more than one email')
     user = ''
     password = ''
     email_list_file = ''
@@ -110,11 +115,15 @@ if __name__ == '__main__':
         password = sys.argv[2]
         email_list_file = sys.argv[3]
 
-    fp = open(email_list_file, 'r')
-    email_list = fp.read().splitlines()
-    fp.close()
+    if '@' not in email_list_file:
+        fp = open(email_list_file, 'r')
+        email_list = fp.read().splitlines()
+        fp.close()
+    else:
+        email_list = sys.argv[3:]
     qqmail = SendMail()
-    qqmail.smtp_server = 'smtp.exmail.qq.com'
+#    qqmail.smtp_server = 'smtp.exmail.qq.com'
+    qqmail.smtp_server = 'smtp.gmail.com'
     qqmail.smtp_port = 465
     qqmail.user = user
     qqmail.password = password
