@@ -99,6 +99,17 @@ class SendMail:
                 emailMsg.attach(fileMsg)
         return emailMsg.as_string()
 
+# get key, value of dict from file, # as the comment
+# file content must be key = value
+def getKeyValue(file_name, sep='='):
+    arg_dict = {}
+    with open(file_name, 'r') as text:
+        for tline in text:
+            if len(tline.strip()) != 0 and tline[0] != '#':
+                tlink = tline.strip().split('#')[0].split(sep)
+                if len(tlink) > 1:
+                    arg_dict[tlink[0].strip()] = tlink[1].strip()
+    return arg_dict
 
 if __name__ == '__main__':
     print('send_email_smtp.py user_name password email_list_file/more than one email')
