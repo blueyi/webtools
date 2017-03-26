@@ -64,7 +64,9 @@ class SendMail:
 
 
     def batch_send(self):
+        count = 1
         for receiver in self.to_list:
+            print('Sending: ' + str(count) + '/' + str(len(self.to_list)))
             if not self.send(receiver):
                 self.failed_list.append(receiver)
             if receiver != self.to_list[len(self.to_list) - 1]:
